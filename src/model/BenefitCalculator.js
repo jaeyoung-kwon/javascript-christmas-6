@@ -1,3 +1,4 @@
+import { Console } from '@woowacourse/mission-utils';
 import BenefitMaker from './BenefitMaker.js';
 
 class BenefitCalculator {
@@ -6,6 +7,8 @@ class BenefitCalculator {
   calculateBenefit(day, menus) {
     this.#addOrSkipResult(BenefitMaker.generateDdayBenefit(day));
     this.#addOrSkipResult(BenefitMaker.generateWeekBenefit(day, menus));
+
+    Console.print(this.#benefitResult);
   }
 
   #addOrSkipResult(result) {

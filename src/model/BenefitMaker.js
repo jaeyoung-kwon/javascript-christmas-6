@@ -11,21 +11,26 @@ class BenefitMaker {
   static generateWeekBenefit(day, menus) {
     const dayIndex = day % 7;
     if (dayIndex === 1 || dayIndex === 2) {
-      return this.#generateWeekendBenefit();
+      return this.#generateWeekendBenefit(menus);
     }
-    return this.#generateWeekdayBenefit(day, menus);
+    return this.#generateWeekdayBenefit(menus);
   }
 
-  static #generateWeekendBenefit() {}
+  static #generateWeekendBenefit(menus) {
+    const mainMenu = filterMenuWithType(menus, 'main');
 
-  static #generateWeekdayBenefit(day, menus) {
+    if (mainMenu.length === 0) return null;
+
+    const amount = getTotalMenuQuantity(mainMenu) * 2_023;
+    return { name: 'weekend', amount };
+  }
+
+  static #generateWeekdayBenefit(menus) {
     const dessertMenu = filterMenuWithType(menus, 'dessert');
-    console.log(menus, dessertMenu);
 
     if (dessertMenu.length === 0) return null;
 
     const amount = getTotalMenuQuantity(dessertMenu) * 2_023;
-    console.log(amount);
     return { name: 'weekday', amount };
   }
 }
