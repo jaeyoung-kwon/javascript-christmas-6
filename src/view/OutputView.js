@@ -13,6 +13,7 @@ class OutputView {
     this.#printOrderMenu(menus);
     this.#printTotalPrice(result.totalPrice);
     this.#printPresentEvent(result.presentEvent);
+    this.#printBenefitList(result.benefitResult);
   }
 
   static #printOrderMenu(menus) {
@@ -29,11 +30,21 @@ class OutputView {
 
   static #printPresentEvent(presentEvent) {
     Console.print(CONSOLE_MESSAGE.presentEventMessage);
-    if (isEmptyObject) {
+    if (isEmptyObject(presentEvent)) {
       Console.print(CONSOLE_MESSAGE.nothingMessage);
       return;
     }
     Console.print(`${presentEvent.name} ${presentEvent.quantity}개`);
+  }
+
+  static #printBenefitList(benefitResult) {
+    Console.print(CONSOLE_MESSAGE.benefitListMessage);
+    if (isEmptyObject(benefitResult)) {
+      Console.print(CONSOLE_MESSAGE.nothingMessage);
+    }
+    Object.entries(benefitResult).forEach(([name, amount]) => {
+      Console.print(`${name}: -${Parser.priceToLocaleString(amount)}원`);
+    });
   }
 }
 

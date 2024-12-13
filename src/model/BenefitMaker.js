@@ -6,7 +6,7 @@ class BenefitMaker {
     if (day > 25) return null;
 
     const amount = 1_000 + (day - 1) * 100;
-    return { name: 'dday', amount };
+    return { name: '크리스마스 디데이 할인', amount };
   }
 
   static generateWeekBenefit(day, menus) {
@@ -18,7 +18,7 @@ class BenefitMaker {
   }
 
   static generateSpecialBenefit(day) {
-    if (STAR_DAY.includes(day)) return { name: 'special', amount: 1_000 };
+    if (STAR_DAY.includes(day)) return { name: '특별 할인', amount: 1_000 };
 
     return null;
   }
@@ -43,7 +43,7 @@ class BenefitMaker {
     if (mainMenu.length === 0) return null;
 
     const amount = getTotalMenuQuantity(mainMenu) * 2_023;
-    return { name: 'weekend', amount };
+    return { name: '주말 할인', amount };
   }
 
   static #generateWeekdayBenefit(menus) {
@@ -52,7 +52,7 @@ class BenefitMaker {
     if (dessertMenu.length === 0) return null;
 
     const amount = getTotalMenuQuantity(dessertMenu) * 2_023;
-    return { name: 'weekday', amount };
+    return { name: '평일 할인', amount };
   }
 }
 
