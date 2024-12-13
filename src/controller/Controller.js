@@ -1,17 +1,14 @@
-import { Console } from '@woowacourse/mission-utils';
+import { MENU_INPUT_REGEX } from '../constant/regex.js';
+import { RULE } from '../constant/rule.js';
 import Parser from '../lib/Parser.js';
 import Validator from '../lib/Validator.js';
 import { InputView, OutputView } from '../view/index.js';
-import { RULE } from '../constant/rule.js';
-import { MENU_INPUT_REGEX } from '../constant/regex.js';
 
 class Controller {
   async start() {
+    OutputView.printStartMessage();
     const visitDay = await this.#getValidatedVisitDay();
     const menuAnsQuantity = await this.#getValidatedMenuAndQuantity();
-
-    Console.print(visitDay);
-    // OutputView.print();
   }
 
   async #getValidatedVisitDay() {
