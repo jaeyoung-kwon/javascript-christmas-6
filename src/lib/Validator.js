@@ -1,34 +1,37 @@
-import { ERROR_MESSAGE } from '../constant/message.js'
-import { throwWoowaError } from '../util/error.js'
+import { ERROR_MESSAGE } from '../constant/message.js';
+import { RULE } from '../constant/rule.js';
+import { throwWoowaError } from '../util/throwWoowaError.js';
 
-class Validator  {
-  validate(input) {
-    
+class Validator {
+  static validateVisitDayInput(input) {
+    this.#checkIsNumber(input, ERROR_MESSAGE.invalidDayInput);
+    this.#checkIsInteger(input, ERROR_MESSAGE.invalidDayInput);
+    this.#checkIsInRange(input, RULE.dayInput.min, RULE.dayInput.max, ERROR_MESSAGE.invalidDayInput);
   }
 
-  static #checkIsNumber(value) {
-    if (!Number.isNaN(Number(value))) throwWoowaError(ERROR_MESSAGE.notNumber);
-  };
+  static #checkIsNumber(value, errorMessage) {
+    if (Number.isNaN(Number(value))) throwWoowaError(errorMessage);
+  }
 
-  static #checkIsPositive(value) {
-    if (Number(value) <= 0) throwWoowaError(ERROR_MESSAGE.notPositive);
-  };
+  static #checkIsPositive(value, errorMessage) {
+    if (Number(value) <= 0) throwWoowaError(errorMessage);
+  }
 
-  static #checkIsInteger(value) {
-    if (Number.isInteger(Number(value))) throwWoowaError(ERROR_MESSAGE.notInteger);
-  };
+  static #checkIsInteger(value, errorMessage) {
+    if (!Number.isInteger(Number(value))) throwWoowaError(errorMessage);
+  }
 
-  static #checkIsInRange(value) {
-    if (value < min || value > max) throwWoowaError(ERROR_MESSAGE.notInRange);
-  };
+  static #checkIsInRange(value, min, max, errorMessage) {
+    if (value < min || value > max) throwWoowaError(errorMessage);
+  }
 
-  static #checkIsDuplicate(values) {
-    if(new Set(values).size !== values.length) throwWoowaError(ERROR_MESSAGE.duplicate);
-  };
+  static #checkIsDuplicate(values, errorMessage) {
+    if (new Set(values).size !== values.length) throwWoowaError(errorMessage);
+  }
 
-  static #checkMoreThanMaxLength(values, maxLength) {
-    if(values.length > maxLength) throwWoowaError(ERROR_MESSAGE.moreThanMaxLength);
-  };
+  static #checkMoreThanMaxLength(values, maxLength, errorMessage) {
+    if (values.length > maxLength) throwWoowaError(errorMessage);
+  }
 }
 
-export default Validator
+export default Validator;
