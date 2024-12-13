@@ -24,7 +24,15 @@ class BenefitMaker {
   }
 
   static generatePresentEvent(totalPrice) {
-    if (totalPrice >= 120_000) return { name: 'present', quantity: 1 };
+    if (totalPrice >= 120_000) return 1;
+
+    return null;
+  }
+
+  static generateEventBadge(totalBenefitPrice) {
+    if (totalBenefitPrice >= 20_000) return '산타';
+    if (totalBenefitPrice >= 10_000) return '트리';
+    if (totalBenefitPrice >= 5_000) return '별';
 
     return null;
   }
