@@ -14,6 +14,7 @@ class BenefitCalculator {
       totalBenefitPrice: 0,
       benefitResult: {},
       presentEvent: {},
+      eventBadge: {},
     };
   }
 
@@ -23,18 +24,19 @@ class BenefitCalculator {
     this.#addOrSkipResult(BenefitMaker.generateWeekBenefit(day, menus), 'benefitResult');
     this.#addOrSkipResult(BenefitMaker.generateSpecialBenefit(day), 'benefitResult');
     this.#addOrSkipResult(BenefitMaker.generatePresentEvent(this.#result.totalPrice), 'presentEvent');
+    this.#addOrSkipResult(BenefitMaker.generateEventBadge(this.#result.totalBenefitPrice), 'eventBadge');
   }
 
   #addOrSkipResult(result, key) {
     if (!result) return;
 
-    if (key === 'benefitResult') {
+    if (key === 'benefitResult' || key === 'presentEvent') {
       this.#result.totalBenefitPrice += result.amount;
-      // if (key === 'presentEvent') {
-      //   this.#result.presentEvent = result;
-      //   this.#result.benefitResult['증정 이벤트'] = result.amount;
-      //   return;
-      // }
+      if (key === 'presentEvent') {
+        this.#result.presentEvent = result;
+        this.#result.benefitResult['증정 이벤트'] = result.amount;
+        return;
+      }
       this.#result.benefitResult[result.name] = result.amount;
       return;
     }
