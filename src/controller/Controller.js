@@ -2,13 +2,17 @@ import { MENU_INPUT_REGEX } from '../constant/regex.js';
 import { RULE } from '../constant/rule.js';
 import Parser from '../lib/Parser.js';
 import Validator from '../lib/Validator.js';
+import BenefitCalculator from '../model/BenefitCalculator.js';
 import { InputView, OutputView } from '../view/index.js';
 
 class Controller {
   async start() {
     OutputView.printStartMessage();
     const visitDay = await this.#getValidatedVisitDay();
-    const menuAnsQuantity = await this.#getValidatedMenuAndQuantity();
+    const menuAndQuantity = await this.#getValidatedMenuAndQuantity();
+
+    const benefitCalculator = new BenefitCalculator();
+    benefitCalculator.calculateBenefit(visitDay);
   }
 
   async #getValidatedVisitDay() {
