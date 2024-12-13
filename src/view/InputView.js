@@ -1,8 +1,9 @@
+import { CONSOLE_MESSAGE } from '../constant/message.js';
 import { repeatUntilComplete } from '../util/repeatUntilComplete.js';
 
 class InputView {
-  static getInput() {
-    return repeatUntilComplete('입력해주세요.\n');
+  static getVisitDayInput() {
+    return repeatUntilComplete(CONSOLE_MESSAGE.visitDayInput);
   }
 }
 

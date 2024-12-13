@@ -13,7 +13,7 @@
     "jest": "29.6.0"
   },
   "scripts": {
-    "start": "mode src/index.js",
+    "start": "node src/index.js",
     "test": "jest --detectOpenHandles"
   },
   "keywords": [],
