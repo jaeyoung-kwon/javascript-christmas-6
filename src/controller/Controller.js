@@ -32,8 +32,8 @@ class Controller {
       const inputs = Parser.splitInputWithSeparator(input, RULE.inputSeparator);
       Validator.validateMenuAndQuantityInput(inputs);
       const menus = inputs.map((eachInput) => {
-        const { name, quantity } = eachInput.match(MENU_INPUT_REGEX).groups;
-        return { name, quantity };
+        const { name, quantityString } = eachInput.match(MENU_INPUT_REGEX).groups;
+        return { name, quantity: Number(quantityString) };
       });
       Validator.validateMenus(menus);
 

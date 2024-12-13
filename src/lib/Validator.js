@@ -16,7 +16,8 @@ class Validator {
     const allMenuNames = getMenuName(MENU);
     const menus = inputs.map((input) => {
       if (!MENU_INPUT_REGEX.test(input)) throwWoowaError(ERROR_MESSAGE.invalidMenuInput);
-      const { name, quantity } = input.match(MENU_INPUT_REGEX).groups;
+      const { name, quantity: quantityString } = input.match(MENU_INPUT_REGEX).groups;
+      const quantity = Number(quantityString);
 
       if (!allMenuNames.includes(name)) throwWoowaError(ERROR_MESSAGE.invalidMenuInput);
       this.#checkIsNumber(quantity, ERROR_MESSAGE.invalidMenuInput);
@@ -25,7 +26,6 @@ class Validator {
 
       return { name, quantity };
     });
-
     const manusNames = getMenuName(menus);
     this.#checkIsDuplicate(manusNames, ERROR_MESSAGE.invalidMenuInput);
   }
