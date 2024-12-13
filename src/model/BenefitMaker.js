@@ -24,7 +24,7 @@ class BenefitMaker {
   }
 
   static generatePresentEvent(totalPrice) {
-    if (totalPrice >= 120_000) return 1;
+    if (totalPrice >= 120_000) return { name: '샴페인', quantity: 1 };
 
     return null;
   }

@@ -12,7 +12,7 @@ class Controller {
     const menus = await this.#getValidatedMenuAndQuantity();
 
     const benefitCalculator = new BenefitCalculator();
-    benefitCalculator.calculateBenefit(visitDay, menus);
+    benefitCalculator.calculateBenefitAndEvent(visitDay, menus);
 
     const benefitResult = benefitCalculator.getResult();
     OutputView.printResult(visitDay, menus, benefitResult);

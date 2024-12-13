@@ -11,6 +11,7 @@ class OutputView {
     Console.print(CONSOLE_MESSAGE.resultInitialMessage(day));
     this.#printOrderMenu(menus);
     this.#printTotalPrice(result.totalPrice);
+    this.#printPresentEvent(result.presentEvent);
   }
 
   static #printOrderMenu(menus) {
@@ -23,6 +24,11 @@ class OutputView {
   static #printTotalPrice(totalPrice) {
     Console.print(CONSOLE_MESSAGE.orderTotalPriceMessage);
     Console.print(`${Parser.priceToLocaleString(totalPrice)}원`);
+  }
+
+  static #printPresentEvent(presentEvent) {
+    Console.print(CONSOLE_MESSAGE.presentEventMessage);
+    Console.print(`${presentEvent.name} ${presentEvent.quantity}개`);
   }
 }
 

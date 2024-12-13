@@ -2,26 +2,43 @@ import { getTotalPrice } from '../util/menuUtils.js';
 import BenefitMaker from './BenefitMaker.js';
 
 class BenefitCalculator {
-  #benefitResult = {};
-  #totalPrice = 0;
-  #totalBenefitPrice = 0;
+  // #benefitResult = {};
+  // #totalPrice = 0;
+  // #totalBenefitPrice = 0;
+  // #presentEvent = {};
+  #result = {};
 
-  calculateBenefit(day, menus) {
-    this.#totalPrice = getTotalPrice(menus);
-    this.#addOrSkipResult(BenefitMaker.generateDdayBenefit(day));
-    this.#addOrSkipResult(BenefitMaker.generateWeekBenefit(day, menus));
-    this.#addOrSkipResult(BenefitMaker.generateSpecialBenefit(day));
+  constructor() {
+    this.#result = {
+      totalPrice: 0,
+      totalBenefitPrice: 0,
+      benefitResult: {},
+      presentEvent: {},
+    };
   }
 
-  #addOrSkipResult(result) {
+  calculateBenefitAndEvent(day, menus) {
+    this.#result.totalPrice = getTotalPrice(menus);
+    this.#addOrSkipResult(BenefitMaker.generateDdayBenefit(day), 'benefitResult');
+    this.#addOrSkipResult(BenefitMaker.generateWeekBenefit(day, menus), 'benefitResult');
+    this.#addOrSkipResult(BenefitMaker.generateSpecialBenefit(day), 'benefitResult');
+    this.#addOrSkipResult(BenefitMaker.generatePresentEvent(this.#result.totalPrice), 'presentEvent');
+  }
+
+  #addOrSkipResult(result, key) {
     if (!result) return;
 
-    this.#totalBenefitPrice += result.amount;
-    this.#benefitResult[result.name] = result.amount;
+    if (key === 'benefitResult') {
+      this.#result.totalBenefitPrice += result.amount;
+      this.#result.benefitResult[result.name] = result.amount;
+      return;
+    }
+    this.#result[key] = result;
   }
 
   getResult() {
-    return { totalPrice: this.#totalPrice };
+    return this.#result;
+    // return { totalPrice: this.#totalPrice };
   }
 }
 
