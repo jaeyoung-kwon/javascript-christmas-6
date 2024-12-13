@@ -20,11 +20,13 @@ class BenefitCalculator {
 
   calculateBenefitAndEvent(day, menus) {
     this.#result.totalPrice = getTotalPrice(menus);
-    this.#addOrSkipResult(BenefitMaker.generateDdayBenefit(day), 'benefitResult');
-    this.#addOrSkipResult(BenefitMaker.generateWeekBenefit(day, menus), 'benefitResult');
-    this.#addOrSkipResult(BenefitMaker.generateSpecialBenefit(day), 'benefitResult');
-    this.#addOrSkipResult(BenefitMaker.generatePresentEvent(this.#result.totalPrice), 'presentEvent');
-    this.#addOrSkipResult(BenefitMaker.generateEventBadge(this.#result.totalBenefitPrice), 'eventBadge');
+    if (this.#result.totalPrice >= 10_000) {
+      this.#addOrSkipResult(BenefitMaker.generateDdayBenefit(day), 'benefitResult');
+      this.#addOrSkipResult(BenefitMaker.generateWeekBenefit(day, menus), 'benefitResult');
+      this.#addOrSkipResult(BenefitMaker.generateSpecialBenefit(day), 'benefitResult');
+      this.#addOrSkipResult(BenefitMaker.generatePresentEvent(this.#result.totalPrice), 'presentEvent');
+      this.#addOrSkipResult(BenefitMaker.generateEventBadge(this.#result.totalBenefitPrice), 'eventBadge');
+    }
   }
 
   #addOrSkipResult(result, key) {
