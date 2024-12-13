@@ -35,6 +35,7 @@ class Controller {
         const { name, quantity } = eachInput.match(MENU_INPUT_REGEX).groups;
         return { name, quantity };
       });
+      Validator.validateMenus(menus);
 
       return menus;
     });

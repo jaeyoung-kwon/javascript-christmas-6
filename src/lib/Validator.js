@@ -1,7 +1,7 @@
 import { ERROR_MESSAGE } from '../constant/message.js';
 import { MENU_INPUT_REGEX } from '../constant/regex.js';
 import { RULE } from '../constant/rule.js';
-import { getMenuName } from '../util/menuUtils.js';
+import { filterMenuWithType, getMenuName } from '../util/menuUtils.js';
 import { throwWoowaError } from '../util/throwWoowaError.js';
 import { MENU } from '../constant/menu.js';
 
@@ -28,6 +28,11 @@ class Validator {
 
     const manusNames = getMenuName(menus);
     this.#checkIsDuplicate(manusNames, ERROR_MESSAGE.invalidMenuInput);
+  }
+
+  static validateMenus(menus) {
+    const drinkMenus = filterMenuWithType(menus, 'drink');
+    if (drinkMenus.length === menus.length) throwWoowaError(ERROR_MESSAGE.invalidMenuInput);
   }
 
   static #checkIsNumber(value, errorMessage) {
