@@ -14,6 +14,7 @@ class OutputView {
     this.#printTotalPrice(result.totalPrice);
     this.#printPresentEvent(result.presentEvent);
     this.#printBenefitList(result.benefitResult);
+    this.#printTotalBenefitPrice(result.totalBenefitPrice);
   }
 
   static #printOrderMenu(menus) {
@@ -45,6 +46,11 @@ class OutputView {
     Object.entries(benefitResult).forEach(([name, amount]) => {
       Console.print(`${name}: -${Parser.priceToLocaleString(amount)}원`);
     });
+  }
+
+  static #printTotalBenefitPrice(price) {
+    Console.print(CONSOLE_MESSAGE.benefitPriceMessage);
+    Console.print(`-${Parser.priceToLocaleString(price)}원`);
   }
 }
 
