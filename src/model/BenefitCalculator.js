@@ -28,13 +28,13 @@ class BenefitCalculator {
   #addOrSkipResult(result, key) {
     if (!result) return;
 
-    if (key === 'benefitResult' || key === 'presentEvent') {
+    if (key === 'benefitResult') {
       this.#result.totalBenefitPrice += result.amount;
-      if (key === 'presentEvent') {
-        this.#result.presentEvent = result;
-        this.#result.benefitResult['증정 이벤트'] = result.amount;
-        return;
-      }
+      // if (key === 'presentEvent') {
+      //   this.#result.presentEvent = result;
+      //   this.#result.benefitResult['증정 이벤트'] = result.amount;
+      //   return;
+      // }
       this.#result.benefitResult[result.name] = result.amount;
       return;
     }

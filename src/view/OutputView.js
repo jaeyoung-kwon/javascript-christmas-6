@@ -13,8 +13,9 @@ class OutputView {
     this.#printOrderMenu(menus);
     this.#printTotalPrice(result.totalPrice);
     this.#printPresentEvent(result.presentEvent);
-    this.#printBenefitList(result.benefitResult);
-    this.#printTotalBenefitPrice(result.totalBenefitPrice);
+    this.#printBenefitList(result.benefitResult, result.presentEvent);
+    this.#printTotalBenefitPrice(result.totalBenefitPrice, result.presentEvent);
+    this.#printFinalPaymentPrice(result.totalPrice, result.totalBenefitPrice);
   }
 
   static #printOrderMenu(menus) {
@@ -38,7 +39,7 @@ class OutputView {
     Console.print(`${presentEvent.name} ${presentEvent.quantity}개`);
   }
 
-  static #printBenefitList(benefitResult) {
+  static #printBenefitList(benefitResult, presentEvent) {
     Console.print(CONSOLE_MESSAGE.benefitListMessage);
     if (isEmptyObject(benefitResult)) {
       Console.print(CONSOLE_MESSAGE.nothingMessage);
@@ -46,11 +47,23 @@ class OutputView {
     Object.entries(benefitResult).forEach(([name, amount]) => {
       Console.print(`${name}: -${Parser.priceToLocaleString(amount)}원`);
     });
+    if (!isEmptyObject(presentEvent)) {
+      Console.print(`증정 이벤트: -${Parser.priceToLocaleString(presentEvent.amount)}원`);
+    }
   }
 
-  static #printTotalBenefitPrice(price) {
+  static #printTotalBenefitPrice(price, presentEvent) {
+    let totalPriceWithPresentEvent;
+    if (!isEmptyObject(presentEvent)) totalPriceWithPresentEvent = price + presentEvent.amount;
+    else totalPriceWithPresentEvent = price;
+
     Console.print(CONSOLE_MESSAGE.benefitPriceMessage);
-    Console.print(`-${Parser.priceToLocaleString(price)}원`);
+    Console.print(`-${Parser.priceToLocaleString(totalPriceWithPresentEvent)}원`);
+  }
+
+  static #printFinalPaymentPrice(totalPrice, totalBenefitPrice) {
+    Console.print(CONSOLE_MESSAGE.finalPaymentPriceMessage);
+    Console.print(`${Parser.priceToLocaleString(totalPrice - totalBenefitPrice)}원`);
   }
 }
 
