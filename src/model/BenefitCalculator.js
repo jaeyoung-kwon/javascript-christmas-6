@@ -19,6 +19,10 @@ class BenefitCalculator {
     this.#totalBenefitPrice += result.amount;
     this.#benefitResult[result.name] = result.amount;
   }
+
+  getResult() {
+    return { totalPrice: this.#totalPrice };
+  }
 }
 
 export default BenefitCalculator;
