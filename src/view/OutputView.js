@@ -5,6 +5,10 @@ class OutputView {
   static printStartMessage() {
     Console.print(CONSOLE_MESSAGE.startMessage);
   }
+
+  static printResult(day) {
+    Console.print(CONSOLE_MESSAGE.resultInitialMessage(day));
+  }
 }
 
 export default OutputView;
