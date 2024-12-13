@@ -1,7 +1,7 @@
 import { ERROR_MESSAGE } from '../constant/message.js';
 import { MENU_INPUT_REGEX } from '../constant/regex.js';
 import { RULE } from '../constant/rule.js';
-import { filterMenuWithType, getMenuName } from '../util/menuUtils.js';
+import { filterMenuWithType, getMenuName, getTotalMenuQuantity } from '../util/menuUtils.js';
 import { throwWoowaError } from '../util/throwWoowaError.js';
 import { MENU } from '../constant/menu.js';
 
@@ -33,6 +33,9 @@ class Validator {
   static validateMenus(menus) {
     const drinkMenus = filterMenuWithType(menus, 'drink');
     if (drinkMenus.length === menus.length) throwWoowaError(ERROR_MESSAGE.invalidMenuInput);
+
+    const totalQuantity = getTotalMenuQuantity(menus);
+    this.#checkMoreThanMax(totalQuantity, 20, ERROR_MESSAGE.invalidMenuInput);
   }
 
   static #checkIsNumber(value, errorMessage) {
@@ -49,6 +52,10 @@ class Validator {
 
   static #checkIsDuplicate(values, errorMessage) {
     if (new Set(values).size !== values.length) throwWoowaError(errorMessage);
+  }
+
+  static #checkMoreThanMax(value, max, errorMessage) {
+    if (value > max) throwWoowaError(errorMessage);
   }
 
   static #checkLessThanMin(value, min, errorMessage) {
