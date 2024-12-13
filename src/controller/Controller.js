@@ -14,7 +14,7 @@ class Controller {
     const benefitCalculator = new BenefitCalculator();
     benefitCalculator.calculateBenefit(visitDay, menus);
 
-    OutputView.printResult(visitDay);
+    OutputView.printResult(visitDay, menus);
   }
 
   async #getValidatedVisitDay() {
