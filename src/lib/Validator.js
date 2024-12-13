@@ -21,7 +21,7 @@ class Validator {
       if (!allMenuNames.includes(name)) throwWoowaError(ERROR_MESSAGE.invalidMenuInput);
       this.#checkIsNumber(quantity, ERROR_MESSAGE.invalidMenuInput);
       this.#checkIsInteger(quantity, ERROR_MESSAGE.invalidMenuInput);
-      this.#checkLessThanMin(quantity, 1, ERROR_MESSAGE.invalidMenuInput);
+      this.#checkLessThanMin(quantity, RULE.orderQuantity.min, ERROR_MESSAGE.invalidMenuInput);
 
       return { name, quantity };
     });
@@ -35,7 +35,7 @@ class Validator {
     if (drinkMenus.length === menus.length) throwWoowaError(ERROR_MESSAGE.invalidMenuInput);
 
     const totalQuantity = getTotalMenuQuantity(menus);
-    this.#checkMoreThanMax(totalQuantity, 20, ERROR_MESSAGE.invalidMenuInput);
+    this.#checkMoreThanMax(totalQuantity, RULE.orderQuantity.max, ERROR_MESSAGE.invalidMenuInput);
   }
 
   static #checkIsNumber(value, errorMessage) {

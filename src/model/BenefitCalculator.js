@@ -1,11 +1,8 @@
 import { getTotalPrice } from '../util/menuUtils.js';
+import { copyObject } from '../util/objectUtils.js';
 import BenefitMaker from './BenefitMaker.js';
 
 class BenefitCalculator {
-  // #benefitResult = {};
-  // #totalPrice = 0;
-  // #totalBenefitPrice = 0;
-  // #presentEvent = {};
   #result = {};
 
   constructor() {
@@ -46,8 +43,7 @@ class BenefitCalculator {
   }
 
   getResult() {
-    return this.#result;
-    // return { totalPrice: this.#totalPrice };
+    return copyObject(this.#result);
   }
 }
 
