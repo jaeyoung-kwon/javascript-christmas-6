@@ -1,4 +1,5 @@
 import { filterMenuWithType, getTotalMenuQuantity } from '../util/menuUtils.js';
+import { STAR_DAY } from '../constant/calendar.js';
 
 class BenefitMaker {
   static generateDdayBenefit(day) {
@@ -14,6 +15,12 @@ class BenefitMaker {
       return this.#generateWeekendBenefit(menus);
     }
     return this.#generateWeekdayBenefit(menus);
+  }
+
+  static generateSpecialBenefit(day) {
+    if (STAR_DAY.includes(day)) return { name: 'special', amount: 1_000 };
+
+    return null;
   }
 
   static #generateWeekendBenefit(menus) {

@@ -7,6 +7,7 @@ class BenefitCalculator {
   calculateBenefit(day, menus) {
     this.#addOrSkipResult(BenefitMaker.generateDdayBenefit(day));
     this.#addOrSkipResult(BenefitMaker.generateWeekBenefit(day, menus));
+    this.#addOrSkipResult(BenefitMaker.generateSpecialBenefit(day));
 
     Console.print(this.#benefitResult);
   }
