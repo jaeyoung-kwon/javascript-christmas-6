@@ -3,10 +3,9 @@ import BenefitMaker from './BenefitMaker.js';
 class BenefitCalculator {
   #benefitResult = {};
 
-  calculateBenefit(day) {
+  calculateBenefit(day, menus) {
     this.#addOrSkipResult(BenefitMaker.generateDdayBenefit(day));
-
-    console.log(this.#benefitResult);
+    this.#addOrSkipResult(BenefitMaker.generateWeekBenefit(day, menus));
   }
 
   #addOrSkipResult(result) {

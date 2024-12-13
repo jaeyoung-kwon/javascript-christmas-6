@@ -9,10 +9,10 @@ class Controller {
   async start() {
     OutputView.printStartMessage();
     const visitDay = await this.#getValidatedVisitDay();
-    const menuAndQuantity = await this.#getValidatedMenuAndQuantity();
+    const menus = await this.#getValidatedMenuAndQuantity();
 
     const benefitCalculator = new BenefitCalculator();
-    benefitCalculator.calculateBenefit(visitDay);
+    benefitCalculator.calculateBenefit(visitDay, menus);
   }
 
   async #getValidatedVisitDay() {
