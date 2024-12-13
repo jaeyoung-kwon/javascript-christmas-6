@@ -15,4 +15,5 @@ export const CONSOLE_MESSAGE = Object.freeze({
   benefitPriceMessage: '\n<총혜택 금액>',
   finalPaymentPriceMessage: '\n<할인 후 예상 결제 금액>',
   eventBadgeMessage: '\n<12월 이벤트 배지>',
+  nothingMessage: '없음',
 });

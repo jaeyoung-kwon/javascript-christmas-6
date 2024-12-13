@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { CONSOLE_MESSAGE } from '../constant/message.js';
 import Parser from '../lib/Parser.js';
+import { isEmptyObject } from '../util/objectUtils.js';
 
 class OutputView {
   static printStartMessage() {
@@ -28,6 +29,10 @@ class OutputView {
 
   static #printPresentEvent(presentEvent) {
     Console.print(CONSOLE_MESSAGE.presentEventMessage);
+    if (isEmptyObject) {
+      Console.print(CONSOLE_MESSAGE.nothingMessage);
+      return;
+    }
     Console.print(`${presentEvent.name} ${presentEvent.quantity}개`);
   }
 }
