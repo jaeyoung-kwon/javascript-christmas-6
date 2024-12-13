@@ -23,6 +23,12 @@ class BenefitMaker {
     return null;
   }
 
+  static generatePresentEvent(totalPrice) {
+    if (totalPrice >= 120_000) return { name: 'present', quantity: 1 };
+
+    return null;
+  }
+
   static #generateWeekendBenefit(menus) {
     const mainMenu = filterMenuWithType(menus, 'main');
 

@@ -12,3 +12,10 @@ export const filterMenuWithType = (menus, type) =>
   });
 
 export const getTotalMenuQuantity = (menus) => menus.reduce((totalQuantity, menu) => totalQuantity + menu.quantity, 0);
+
+export const getTotalPrice = (menus) =>
+  menus.reduce((totalPrice, { name, quantity }) => {
+    const menuWithPrice = getMenuWithName(name);
+
+    return totalPrice + menuWithPrice.price * quantity;
+  }, 0);
