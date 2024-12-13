@@ -1,1 +1,1 @@
-export const MENU_INPUT_REGEX = /^(?<menu>[ㄱ-ㅎ가-힣\s]+)-(?<quantity>\d+)$/;
+export const MENU_INPUT_REGEX = /^(?<name>[ㄱ-ㅎ가-힣]+)-(?<quantity>\d+)$/;

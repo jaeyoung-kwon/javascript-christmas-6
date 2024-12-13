@@ -3,4 +3,5 @@ export const RULE = Object.freeze({
     min: 1,
     max: 31,
   },
+  inputSeparator: ',',
 });

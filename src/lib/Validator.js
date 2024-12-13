@@ -1,5 +1,7 @@
 import { ERROR_MESSAGE } from '../constant/message.js';
+import { MENU_INPUT_REGEX } from '../constant/regex.js';
 import { RULE } from '../constant/rule.js';
+import { getAllMenuName } from '../util/menuUtils.js';
 import { throwWoowaError } from '../util/throwWoowaError.js';
 
 class Validator {
@@ -9,12 +11,26 @@ class Validator {
     this.#checkIsInRange(input, RULE.dayInput.min, RULE.dayInput.max, ERROR_MESSAGE.invalidDayInput);
   }
 
-  static #checkIsNumber(value, errorMessage) {
-    if (Number.isNaN(Number(value))) throwWoowaError(errorMessage);
+  static validateMenuAndQuantityInput(inputs) {
+    const allMenu = getAllMenuName();
+    const menus = inputs.map((input) => {
+      if (!MENU_INPUT_REGEX.test(input)) throwWoowaError(ERROR_MESSAGE.invalidMenuInput);
+      const { name, quantity } = input.match(MENU_INPUT_REGEX).groups;
+
+      if (!allMenu.includes(name)) throwWoowaError(ERROR_MESSAGE.invalidMenuInput);
+      this.#checkIsNumber(quantity, ERROR_MESSAGE.invalidMenuInput);
+      this.#checkIsInteger(quantity, ERROR_MESSAGE.invalidMenuInput);
+      this.#checkLessThanMin(quantity, 1, ERROR_MESSAGE.invalidMenuInput);
+
+      return { name, quantity };
+    });
+
+    const manusNames = menus.map((menu) => menu.name);
+    this.#checkIsDuplicate(manusNames, ERROR_MESSAGE.invalidMenuInput);
   }
 
-  static #checkIsPositive(value, errorMessage) {
-    if (Number(value) <= 0) throwWoowaError(errorMessage);
+  static #checkIsNumber(value, errorMessage) {
+    if (Number.isNaN(Number(value))) throwWoowaError(errorMessage);
   }
 
   static #checkIsInteger(value, errorMessage) {
@@ -29,8 +45,8 @@ class Validator {
     if (new Set(values).size !== values.length) throwWoowaError(errorMessage);
   }
 
-  static #checkMoreThanMaxLength(values, maxLength, errorMessage) {
-    if (values.length > maxLength) throwWoowaError(errorMessage);
+  static #checkLessThanMin(value, min, errorMessage) {
+    if (value < min) throwWoowaError(errorMessage);
   }
 }
 
